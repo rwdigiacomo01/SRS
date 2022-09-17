@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import unicodedata
 radius = 1
-tlist = np.linspace(0, 15, num=1000)
+tlist = np.linspace(0, 20, num=1000)
 
 def x(t):
     return (radius/(2*np.pi) * t) * np.cos(t)
