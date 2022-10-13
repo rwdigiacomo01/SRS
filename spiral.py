@@ -13,7 +13,6 @@ def x(t):
 def y(t):
     return (radius / (2 * np.pi) * t) * np.sin(t)
 
-
 xlist = x(tlist)
 ylist = y(tlist)
 
