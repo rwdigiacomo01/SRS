@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+import unicodedata
+
 radius = 1
 tlist = np.linspace(0, (2 * np.pi), num=1000)
 
@@ -15,37 +17,59 @@ def y(t):
 
 xlist = x(tlist)
 ylist = y(tlist)
+clist = []
 
+for i in range(len(xlist)):
+    temp = [xlist[i], ylist[i]]
+    clist.append(temp)
 def getAngle(xdist, ydist, rxdist, rydist):
     vector_a = float(np.sqrt(((xdist ** 2) + (ydist ** 2))))
-    print(vector_a)
     vector_b = float(np.sqrt(((rxdist ** 2) + (rydist ** 2))))
-    print(vector_b)
     dot_prod = float((xdist * rxdist) + (ydist * rydist))
-    print(dot_prod)
     ratio = min(1, dot_prod / (vector_a * vector_b))
-    print(ratio)
     theta = math.acos(ratio) * (360 / (2 * np.pi))
-
     return float(theta)
-print(tlist[0])
-print (xlist[0])
-print (ylist[0])
-for i in range(len(xlist)-1):
-    magnitude = np.sqrt(((xlist[i+1] - xlist[i])**2) + ((ylist[i+1] - ylist[i])**2))
-    rslope = float(ylist[i]/xlist[i])
-    if xlist[i] == 0:
-        print(rslope)
-    ry = rslope*xlist[i+1]
-    rmagnitude = np.sqrt(((xlist[i + 1] - xlist[i]) ** 2) + ((ry - ylist[i]) ** 2))
 
-    xdist = xlist[i+1] - xlist[i]
-    ydist = ylist[i+1] - ylist[i]
-    rxdist = xdist
-    rydist = ry - ylist[i]
-    # print("The Angle between the Archimedean vector ("+ str(magnitude)+") and the Radial vector ("+str(rmagnitude)+") is: "+ str(getAngle(xdist, ydist, rxdist, rydist)) + " degrees.")
+theta_list = []
 
+for i in range(len(clist)):
+    if i == len(clist)-1:
+        add = theta_list[-1]
+        theta_list.append(add)
+        break
 
+    x_initial = (clist[i])[0]
+    x_final = (clist[i+1])[0]
 
+    y_initial = (clist[i])[1]
+    y_final = (clist[i + 1])[1]
 
+    x_dist = x_final - x_initial
+    y_dist = y_final - y_initial
 
+    if(x_initial == 0):
+        r_slope = 0
+    else:
+        r_slope = x_initial / y_initial
+
+    ry = r_slope * x_final
+
+    ry_dist = ry - y_initial
+
+    theta = getAngle(x_dist, y_dist, x_dist, ry_dist)
+
+    theta_list.append(theta)
+
+print(theta_list)
+
+print(tlist)
+plt.figure(num=0, dpi=120)
+plt.plot(tlist, theta_list)
+plt.grid(True)
+
+pi = unicodedata.lookup("GREEK SMALL LETTER PI")
+th = unicodedata.lookup("GREEK SMALL LETTER THETA")
+plt.xlabel("t (0 -> 2" + pi + ")")
+plt.ylabel(th + " (degrees)")
+
+plt.show()
