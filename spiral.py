@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import unicodedata
 
-radius = 1
+radius = 2*np.pi
 tlist = np.linspace(0, (2 * np.pi), num=1000)
 
 

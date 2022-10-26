@@ -4,16 +4,15 @@ import math
 
 import unicodedata
 
-radius = 1
+radius = 2 * np.pi
 tlist = np.linspace(0, (2 * np.pi), num=1000)
 
 def x(t):
-    return (radius / (2 * np.pi) * t) * np.cos(t)
+    return ((radius / (2 * np.pi)) * t) * np.cos(t)
 
 
 def y(t):
-    return (radius / (2 * np.pi) * t) * np.sin(t)
-
+    return ((radius / (2 * np.pi)) * t) * np.sin(t)
 
 xlist = x(tlist)
 ylist = y(tlist)
@@ -22,17 +21,23 @@ clist = []
 for i in range(len(xlist)):
     temp = [xlist[i], ylist[i]]
     clist.append(temp)
+
+
 def getAngle(xdist, ydist, rxdist, rydist):
     vector_a = float(np.sqrt(((xdist ** 2) + (ydist ** 2))))
     vector_b = float(np.sqrt(((rxdist ** 2) + (rydist ** 2))))
     dot_prod = float((xdist * rxdist) + (ydist * rydist))
-    ratio = min(1, dot_prod / (vector_a * vector_b))
+    ratio = dot_prod / (vector_a * vector_b)
     theta = math.acos(ratio) * (360 / (2 * np.pi))
     return float(theta)
 
 theta_list = []
+radial_length = []
 
 for i in range(len(clist)):
+    distance = np.sqrt((((clist[i])[0])**2) + (((clist[i])[1])**2))
+    radial_length.append(distance)
+
     if i == len(clist)-1:
         add = theta_list[-1]
         theta_list.append(add)
@@ -48,7 +53,7 @@ for i in range(len(clist)):
     y_dist = y_final - y_initial
 
     if(x_initial == 0):
-        r_slope = 0
+        r_slope = ((clist[i + 1])[1])/((clist[i+1])[0])
     else:
         r_slope = x_initial / y_initial
 
@@ -60,16 +65,16 @@ for i in range(len(clist)):
 
     theta_list.append(theta)
 
-print(theta_list)
+print(len(theta_list))
+print(len(radial_length))
 
-print(tlist)
 plt.figure(num=0, dpi=120)
-plt.plot(tlist, theta_list)
+plt.plot(theta_list, radial_length)
 plt.grid(True)
 
 pi = unicodedata.lookup("GREEK SMALL LETTER PI")
 th = unicodedata.lookup("GREEK SMALL LETTER THETA")
-plt.xlabel("t (0 -> 2" + pi + ")")
-plt.ylabel(th + " (degrees)")
+plt.ylabel("Distance from center (0 -> 2" + pi + ")")
+plt.xlabel(th + " (degrees)")
 
 plt.show()
