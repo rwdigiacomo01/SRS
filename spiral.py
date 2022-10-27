@@ -38,3 +38,4 @@ plt.ylabel("((r/2" + pi + ")*t)*sin(t)")
 plt.title("Archimedean Spiral")
 
 plt.show()
+
