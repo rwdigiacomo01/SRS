@@ -13,9 +13,8 @@ for i in range(m):
         angle.append(0)
     angle.append(angle[i]+((360/m)*(np.pi/180)))
 #temp solution
-# I kept getting 1 more value than I needed so I popped the last value
+# I kept getting 1 more value than I needed, so I popped the last value
 angle.pop()
-
 
 def solar (t):
     return t * ((400)/(1.496*10**8))

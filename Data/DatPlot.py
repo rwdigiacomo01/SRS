@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 
-data = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb1')
-data2 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb2')
-data4 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb4')
+data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+#data2 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb2')
+#data4 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb4')
 
 t = []
 x = []
@@ -38,6 +38,7 @@ while i < 5270001:
 #         break
 #     else:
 #         i+=1
+# Used to find where to begin count, where values are no longer NaN
 
 ax = plt.axes(projection="3d")
 
