@@ -20,6 +20,7 @@ while i < 5270001:
    z.append((data[i])[3]/ (1.496*10**8))
    i+=500
 
+print(x)
 # i = 0
 # #print(len(data))
 # while i < len(data):
