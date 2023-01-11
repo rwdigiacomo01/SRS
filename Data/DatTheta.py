@@ -9,19 +9,15 @@ x = []
 y = []
 z = []
 
-print(t)
-i = 1279000
-print((data[i])[1])
-print(i)
-while i < 2279100 and len(x) < 100:
-    print(len(x))
+i = 0
+while i < len(data):
     if(math.isnan((data[i])[1])) == False:
         t.append((data[i])[0])
         x.append((data[i])[1])
         y.append((data[i])[2])
         z.append((data[i])[3])
 
-    i = i + 1
+    i = i + 1000
 
 
 def getAngle(xdist, ydist, rxdist, rydist):
@@ -34,9 +30,6 @@ def getAngle(xdist, ydist, rxdist, rydist):
 
 radial = []
 theta = []
-print(x)
-print(y)
-print(z)
 i = 0
 
 while i < len(t):
