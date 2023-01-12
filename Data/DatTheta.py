@@ -2,9 +2,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+#data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+#data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
+data = np.loadtxt(r'E:\Copy of B_1s_orb1')
+data2 = np.loadtxt(r'E:\Copy of r_psp_hci_1s_orb1')
 
+Bt = []
+r = []
 t = []
+n = []
+
+Rt = []
 x = []
 y = []
 z = []
@@ -12,13 +20,24 @@ z = []
 i = 0
 while i < len(data):
     if(math.isnan((data[i])[1])) == False:
-        t.append((data[i])[0])
-        x.append((data[i])[1])
-        y.append((data[i])[2])
-        z.append((data[i])[3])
+        Bt.append((data[i])[0])
+        r.append((data[i])[1])
+        t.append((data[i])[2])
+        n.append((data[i])[3])
 
-    i = i + 1000
+    i = i + 1
+i = 0
+while i < len(data2):
+    if(math.isnan((data2[i])[1])) == False:
+        Rt.append((data2[i])[0])
+        x.append((data2[i])[1])
+        y.append((data2[i])[2])
+        z.append((data2[i])[3])
 
+    i = i + 1
+
+print(len(Rt))
+print(len(Bt))
 
 def getAngle(xdist, ydist, rxdist, rydist):
     vector_a = float(np.sqrt(((xdist ** 2) + (ydist ** 2))))
@@ -32,31 +51,31 @@ radial = []
 theta = []
 i = 0
 
-while i < len(t):
-    distance = np.sqrt(((x[i]/ (1.496*10**8))**2) + (y[i]/ (1.496*10**8))**2)
-    radial.append(distance)
+while i < len(Bt):
+    #distance = np.sqrt(((x[i]/ (1.496*10**8))**2) + (y[i]/ (1.496*10**8))**2)
+    #radial.append(distance)
 
-    if i == len(t)-1:
+    if i == len(Bt)-1:
         theta.append(theta[-1])
         break
 
-    xdist = x[i+1] - x[i]
-    ydist = y[i+1] - y[i]
+    xdist = r[i+1] - r[i]
+    ydist = t[i+1] - t[i]
 
-    rslope = y[i]/x[i]
+    rslope = t[i]/r[i]
 
-    ry = rslope * y[i+1]
-    rydist = ry - y[i]
+    ry = rslope * t[i+1]
+    rydist = ry - t[i]
 
     theta.append(getAngle(xdist, ydist, xdist, rydist))
 
     i+=1
 
-print(radial)
-print(theta)
+angle = []
+mag = []
 
 plt.figure(num=0, dpi=120)
-plt.plot(radial, theta)
+plt.plot(angle, Bt)
 plt.grid(True)
 
 
