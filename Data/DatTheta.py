@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-#data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
-#data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
-data = np.loadtxt(r'E:\Copy of B_1s_orb1')
-data2 = np.loadtxt(r'E:\Copy of r_psp_hci_1s_orb1')
+data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
+# data = np.loadtxt(r'E:\Copy of B_1s_orb1')
+# data2 = np.loadtxt(r'E:\Copy of r_psp_hci_1s_orb1')
 
 Bt = []
 r = []
@@ -36,8 +36,6 @@ while i < len(data2):
 
     i = i + 1
 
-print(len(Rt))
-print(len(Bt))
 
 def getAngle(xdist, ydist, rxdist, rydist):
     vector_a = float(np.sqrt(((xdist ** 2) + (ydist ** 2))))
@@ -46,14 +44,15 @@ def getAngle(xdist, ydist, rxdist, rydist):
     ratio = abs(dot_prod / (vector_a * vector_b))
     theta = math.acos(ratio) * (360 / (2 * np.pi))
     return float(theta)
-
 radial = []
 theta = []
 i = 0
-
+while i < len(Rt):
+    distance = np.sqrt(((x[i]/ (1.496*10**8))**2) + (y[i]/ (1.496*10**8))**2)
+    radial.append([Rt[i], distance])
+    i += 1
+i = 0
 while i < len(Bt):
-    #distance = np.sqrt(((x[i]/ (1.496*10**8))**2) + (y[i]/ (1.496*10**8))**2)
-    #radial.append(distance)
 
     if i == len(Bt)-1:
         theta.append(theta[-1])
@@ -67,15 +66,55 @@ while i < len(Bt):
     ry = rslope * t[i+1]
     rydist = ry - t[i]
 
-    theta.append(getAngle(xdist, ydist, xdist, rydist))
+    theta.append([Bt[i], getAngle(xdist, ydist, xdist, rydist)])
 
     i+=1
 
 angle = []
 mag = []
+tcount = 1538352000
+i = 0
+p = 0
+bp = 0
 
+while i < 1464:
+    counter = 0
+    btemp = []
+    rtemp = []
+    tcount += 3600
+    while counter < 3600 and (tcount <= 1543622400):
+
+        if bp < len(theta) and (theta[bp])[0] < tcount:
+            btemp.append((theta[bp])[1])
+            bp += 1
+        if p < len(radial) and (radial[p])[0] < tcount:
+            rtemp.append((radial[p])[1])
+            p += 1
+        counter += 1
+
+
+    if (len(btemp) != 0) and (len(rtemp) != 0):
+        h = 0
+        number = 0
+        while h < len(btemp):
+            number += btemp[h];
+            h+= 1
+        angle.append(number / len(btemp))
+        h = 0
+        number = 0
+        while h < len(rtemp):
+            number += rtemp[h];
+            h += 1
+        mag.append(number / len(rtemp))
+    # else:
+    #     bavg.append(0)
+    #     ravg.append(0)
+
+    i += 1
+print(mag)
+print(angle)
 plt.figure(num=0, dpi=120)
-plt.plot(angle, Bt)
+plt.plot(mag, angle)
 plt.grid(True)
 
 
