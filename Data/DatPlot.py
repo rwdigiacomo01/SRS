@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 
 data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
 #data2 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb2')
 #data4 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb4')
 

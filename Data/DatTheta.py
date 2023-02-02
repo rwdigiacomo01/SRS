@@ -19,7 +19,7 @@ z = []
 
 i = 0
 while i < len(data):
-    if(math.isnan((data[i])[1])) == False:
+    if not (math.isnan((data[i])[1])):
         Bt.append((data[i])[0])
         r.append((data[i])[1])
         t.append((data[i])[2])
@@ -28,7 +28,7 @@ while i < len(data):
     i = i + 1
 i = 0
 while i < len(data2):
-    if(math.isnan((data2[i])[1])) == False:
+    if not (math.isnan((data2[i])[1])):
         Rt.append((data2[i])[0])
         x.append((data2[i])[1])
         y.append((data2[i])[2])
@@ -36,14 +36,17 @@ while i < len(data2):
 
     i = i + 1
 
-def getMagnitude (x, y, z):
-    magnitude = np.sqrt(((x)**2) + ((y)**2) + ((z)**2))
+
+def getMagnitude(x1, y1, z1):
+    magnitude = np.sqrt((x1 ** 2) + (y1 ** 2) + (z1 ** 2))
     return magnitude
+
+
 def getAngle(Br, magnitude):
-    temp = (Br/magnitude)
-    temp2 = (math.acos(temp)) * (180/np.pi)
-    
-    return temp2
+    temp = (math.acos((Br / magnitude)) * (180 / np.pi))
+
+    return temp
+
 
 radial = []
 theta = []
@@ -54,13 +57,13 @@ while i < len(Rt):
 i = 0
 while i < len(Bt):
 
-    if i == len(Bt)-1:
+    if i == len(Bt) - 1:
         theta.append(theta[-1])
         break
 
     theta.append([Bt[i], getAngle(r[i], getMagnitude(r[i], t[i], n[i]))])
 
-    i+=1
+    i += 1
 
 angle = []
 mag = []
@@ -84,18 +87,19 @@ while i < 1464:
             p += 1
         counter += 1
 
-
     if (len(angletemp) != 0) and (len(magtemp) != 0):
+
         h = 0
         number = 0
         while h < len(angletemp):
-            number += angletemp[h];
-            h+= 1
+            number += angletemp[h]
+            h += 1
         angle.append(number / len(angletemp))
+
         h = 0
         number = 0
         while h < len(magtemp):
-            number += magtemp[h];
+            number += magtemp[h]
             h += 1
         mag.append(number / len(magtemp))
     # else:
@@ -111,11 +115,10 @@ plt.figure(num=0, dpi=120)
 plt.scatter(mag, angle)
 plt.grid(True)
 
-
-#pi = unicodedata.lookup("GREEK SMALL LETTER PI")
+# pi = unicodedata.lookup("GREEK SMALL LETTER PI")
 # th = unicodedata.lookup("GREEK SMALL LETTER THETA")
-#x_ticks = [0, pi + "/2", pi, "3" + pi + "/2", "2" + pi]
-#plt.xlabel("Distance from center (0 -> 2" + pi + ")")
-#plt.ylabel(th + " (degrees)")
+# x_ticks = [0, pi + "/2", pi, "3" + pi + "/2", "2" + pi]
+# plt.xlabel("Distance from center (0 -> 2" + pi + ")")
+# plt.ylabel(th + " (degrees)")
 
 plt.show()
