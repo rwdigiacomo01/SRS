@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
-data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
+data2 = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+data = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
 # data = np.loadtxt(r'E:\Copy of B_1s_orb1')
 # data2 = np.loadtxt(r'E:\Copy of r_psp_hci_1s_orb1')
 
@@ -36,20 +36,20 @@ while i < len(data2):
 
     i = i + 1
 
+def getMagnitude (x, y, z):
+    magnitude = np.sqrt(((x)**2) + ((y)**2) + ((z)**2))
+    return magnitude
+def getAngle(Br, magnitude):
+    temp = (Br/magnitude)
+    temp2 = (math.acos(temp)) * (180/np.pi)
+    
+    return temp2
 
-def getAngle(xdist, ydist, rxdist, rydist):
-    vector_a = float(np.sqrt(((xdist ** 2) + (ydist ** 2))))
-    vector_b = float(np.sqrt(((rxdist ** 2) + (rydist ** 2))))
-    dot_prod = float((xdist * rxdist) + (ydist * rydist))
-    ratio = abs(dot_prod / (vector_a * vector_b))
-    theta = math.acos(ratio) * (360 / (2 * np.pi))
-    return float(theta)
 radial = []
 theta = []
 i = 0
 while i < len(Rt):
-    distance = np.sqrt(((x[i]/ (1.496*10**8))**2) + (y[i]/ (1.496*10**8))**2)
-    radial.append([Rt[i], distance])
+    radial.append([Rt[i], getMagnitude(x[i], y[i], z[i])])
     i += 1
 i = 0
 while i < len(Bt):
@@ -58,15 +58,7 @@ while i < len(Bt):
         theta.append(theta[-1])
         break
 
-    xdist = r[i+1] - r[i]
-    ydist = t[i+1] - t[i]
-
-    rslope = t[i]/r[i]
-
-    ry = rslope * t[i+1]
-    rydist = ry - t[i]
-
-    theta.append([Bt[i], getAngle(xdist, ydist, xdist, rydist)])
+    theta.append([Bt[i], getAngle(r[i], getMagnitude(r[i], t[i], n[i]))])
 
     i+=1
 
@@ -79,42 +71,44 @@ bp = 0
 
 while i < 1464:
     counter = 0
-    btemp = []
-    rtemp = []
-    tcount += 3600
-    while counter < 3600 and (tcount <= 1543622400):
+    angletemp = []
+    magtemp = []
+    tcount += 36000
+    while counter < 36000 and (tcount <= 1543622400):
 
         if bp < len(theta) and (theta[bp])[0] < tcount:
-            btemp.append((theta[bp])[1])
+            angletemp.append((theta[bp])[1])
             bp += 1
         if p < len(radial) and (radial[p])[0] < tcount:
-            rtemp.append((radial[p])[1])
+            magtemp.append((radial[p])[1])
             p += 1
         counter += 1
 
 
-    if (len(btemp) != 0) and (len(rtemp) != 0):
+    if (len(angletemp) != 0) and (len(magtemp) != 0):
         h = 0
         number = 0
-        while h < len(btemp):
-            number += btemp[h];
+        while h < len(angletemp):
+            number += angletemp[h];
             h+= 1
-        angle.append(number / len(btemp))
+        angle.append(number / len(angletemp))
         h = 0
         number = 0
-        while h < len(rtemp):
-            number += rtemp[h];
+        while h < len(magtemp):
+            number += magtemp[h];
             h += 1
-        mag.append(number / len(rtemp))
+        mag.append(number / len(magtemp))
     # else:
     #     bavg.append(0)
     #     ravg.append(0)
 
     i += 1
+print(len(mag))
 print(mag)
 print(angle)
+print(len(angle))
 plt.figure(num=0, dpi=120)
-plt.plot(mag, angle)
+plt.scatter(mag, angle)
 plt.grid(True)
 
 
