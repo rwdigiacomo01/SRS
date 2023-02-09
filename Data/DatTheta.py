@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-data2 = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
-data = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
+data2 = np.loadtxt(r'C:\Users\reece\Downloads\R_psp_hci_orb1_nonan.dat')
+data = np.loadtxt(r'C:\Users\reece\Downloads\B_rtn_orb1_nonan.dat')
 # data = np.loadtxt(r'E:\Copy of B_1s_orb1')
 # data2 = np.loadtxt(r'E:\Copy of r_psp_hci_1s_orb1')
 
@@ -19,20 +19,19 @@ z = []
 
 i = 0
 while i < len(data):
-    if not (math.isnan((data[i])[1])):
-        Bt.append((data[i])[0])
-        r.append((data[i])[1])
-        t.append((data[i])[2])
-        n.append((data[i])[3])
+    Bt.append((data[i])[0])
+    r.append((data[i])[1])
+    t.append((data[i])[2])
+    n.append((data[i])[3])
 
     i = i + 1
 i = 0
 while i < len(data2):
-    if not (math.isnan((data2[i])[1])):
-        Rt.append((data2[i])[0])
-        x.append((data2[i])[1])
-        y.append((data2[i])[2])
-        z.append((data2[i])[3])
+
+    Rt.append((data2[i])[0])
+    x.append((data2[i])[1])
+    y.append((data2[i])[2])
+    z.append((data2[i])[3])
 
     i = i + 1
 
@@ -64,7 +63,7 @@ while i < len(Bt):
     theta.append([Bt[i], getAngle(r[i], getMagnitude(r[i], t[i], n[i]))])
 
     i += 1
-
+# Adjust t-count and i in the greater while loop since there are no longer any gaps in data
 angle = []
 mag = []
 tcount = 1538352000
@@ -76,8 +75,8 @@ while i < 1464:
     counter = 0
     angletemp = []
     magtemp = []
-    tcount += 36000
-    while counter < 36000 and (tcount <= 1543622400):
+    tcount += 3600
+    while counter < 3600 and (tcount <= 1543622400):
 
         if bp < len(theta) and (theta[bp])[0] < tcount:
             angletemp.append((theta[bp])[1])
