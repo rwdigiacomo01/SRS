@@ -36,6 +36,8 @@ pi = unicodedata.lookup("GREEK SMALL LETTER PI")
 plt.xlabel("((r/2" + pi + ")*t)*cos(t)")
 plt.ylabel("((r/2" + pi + ")*t)*sin(t)")
 plt.title("Archimedean Spiral")
+plt.xlim(-2*np.pi, 2*np.pi)
+plt.ylim(-2*np.pi, 2*np.pi)
 
 plt.show()
 

@@ -8,12 +8,14 @@ import unicodedata
 radius = 2 * np.pi
 tlist = np.linspace(0, (2 * np.pi), num=1000)
 
+
 def x(t):
     return ((radius / (2 * np.pi)) * t) * np.cos(t)
 
 
 def y(t):
     return ((radius / (2 * np.pi)) * t) * np.sin(t)
+
 
 xlist = x(tlist)
 ylist = y(tlist)
@@ -24,6 +26,9 @@ for i in range(len(xlist)):
     clist.append(temp)
 
 
+print(clist[0])
+
+
 def getAngle(xdist, ydist, rxdist, rydist):
     vector_a = float(np.sqrt(((xdist ** 2) + (ydist ** 2))))
     vector_b = float(np.sqrt(((rxdist ** 2) + (rydist ** 2))))
@@ -31,6 +36,7 @@ def getAngle(xdist, ydist, rxdist, rydist):
     ratio = abs(dot_prod / (vector_a * vector_b))
     theta = math.acos(ratio) * (360 / (2 * np.pi))
     return float(theta)
+
 
 theta_list = []
 radial_length = []
@@ -40,8 +46,7 @@ for i in range(len(clist)):
     radial_length.append(distance)
 
     if i == len(clist)-1:
-        add = theta_list[-1]
-        theta_list.append(add)
+        theta_list.append(theta_list[-1])
         break
 
     x_initial = (clist[i])[0]
@@ -54,7 +59,7 @@ for i in range(len(clist)):
     y_dist = (y_final - y_initial)
 
     if x_initial == 0:
-        r_slope = (y_final)/(x_final)
+        r_slope = y_final / x_final
     else:
         r_slope = y_initial / x_initial
 
@@ -62,9 +67,9 @@ for i in range(len(clist)):
 
     ry_dist = (ry - y_initial)
 
-    theta = getAngle(x_dist, y_dist, x_dist, ry_dist)
+    the = getAngle(x_dist, y_dist, x_dist, ry_dist)
 
-    theta_list.append(theta)
+    theta_list.append(the)
 
 print(len(theta_list))
 print(len(radial_length))
@@ -79,6 +84,7 @@ pi = unicodedata.lookup("GREEK SMALL LETTER PI")
 th = unicodedata.lookup("GREEK SMALL LETTER THETA")
 x_ticks = [0, pi + "/2", pi, "3" + pi + "/2", "2" + pi]
 plt.xlabel("Distance from center (0 -> 2" + pi + ")")
+
 plt.ylabel(th + " (degrees)")
 
 plt.show()

@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+import unicodedata
+
 data2 = np.loadtxt(r'C:\Users\reece\Downloads\R_psp_hci_orb1_nonan.dat')
 data = np.loadtxt(r'C:\Users\reece\Downloads\B_rtn_orb1_nonan.dat')
 # data = np.loadtxt(r'E:\Copy of B_1s_orb1')
@@ -29,9 +31,9 @@ i = 0
 while i < len(data2):
 
     Rt.append((data2[i])[0])
-    x.append((data2[i])[1])
-    y.append((data2[i])[2])
-    z.append((data2[i])[3])
+    x.append((data2[i])[1] / (1.496*10**8))
+    y.append((data2[i])[2] / (1.496*10**8))
+    z.append((data2[i])[3] / (1.496*10**8))
 
     i = i + 1
 
@@ -75,8 +77,8 @@ while i < 1464:
     counter = 0
     angletemp = []
     magtemp = []
-    tcount += 3600
-    while counter < 3600 and (tcount <= 1543622400):
+    tcount += 36000
+    while counter < 36000 and (tcount <= 1543622400):
 
         if bp < len(theta) and (theta[bp])[0] < tcount:
             angletemp.append((theta[bp])[1])
@@ -113,9 +115,10 @@ print(len(angle))
 plt.figure(num=0, dpi=120)
 plt.scatter(mag, angle)
 plt.grid(True)
-
+th = unicodedata.lookup("GREEK SMALL LETTER THETA")
+plt.title("Magnetic Field Angle (" + th + ") vs Distance From Center of the Sun (AU)")
 # pi = unicodedata.lookup("GREEK SMALL LETTER PI")
-# th = unicodedata.lookup("GREEK SMALL LETTER THETA")
+
 # x_ticks = [0, pi + "/2", pi, "3" + pi + "/2", "2" + pi]
 # plt.xlabel("Distance from center (0 -> 2" + pi + ")")
 # plt.ylabel(th + " (degrees)")

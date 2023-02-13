@@ -50,4 +50,6 @@ ax.set_xlim(-.6, .6)
 ax.set_ylim(-.6, .6)
 ax.set_zlim(-.6, .6)
 
+ax.set_title("")
+
 plt.show()
