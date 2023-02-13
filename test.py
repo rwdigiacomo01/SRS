@@ -14,5 +14,5 @@ ax.grid(True)
 
 # angle = input("What angle does the radial line exit the origin from: ")
 
-ax.set_title("A line plot on a polar axis", va='bottom')
+ax.set_title("An Archimedean Spiral on a Polar Axis", va='bottom')
 plt.show()

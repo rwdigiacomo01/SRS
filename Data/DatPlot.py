@@ -2,19 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 
-data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
-data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
-#data2 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb2')
-#data4 = np.loadtxt(r'D:\Copy of r_psp_hci_1s_orb4')
+#data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
+#data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
+data2 = np.loadtxt(r'D:\B_rtn_orb1_nonan.dat')
+data = np.loadtxt(r'D:\R_psp_hci_orb1_nonan.dat')
 
 t = []
 x = []
 y = []
 z = []
 
-i = 1279000
+i = 0
 
-while i < 5270001:
+while i < 4585001:
    t.append((data[i])[0])
    x.append((data[i])[1]/ (1.496*10**8))
    y.append((data[i])[2]/ (1.496*10**8))

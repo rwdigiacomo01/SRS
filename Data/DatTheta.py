@@ -65,49 +65,62 @@ while i < len(Bt):
     theta.append([Bt[i], getAngle(r[i], getMagnitude(r[i], t[i], n[i]))])
 
     i += 1
+
+
+def sort_by_distance(e):
+    return e[0]
+# Combine radial and theta into a single list via identical timestamps
+# use combined_list.sort(key=sort_by_distance), automatically sorts ascending
+#
+
+
+
 # Adjust t-count and i in the greater while loop since there are no longer any gaps in data
 angle = []
 mag = []
-tcount = 1538352000
-i = 0
-p = 0
-bp = 0
 
-while i < 1464:
-    counter = 0
-    angletemp = []
-    magtemp = []
-    tcount += 36000
-    while counter < 36000 and (tcount <= 1543622400):
 
-        if bp < len(theta) and (theta[bp])[0] < tcount:
-            angletemp.append((theta[bp])[1])
-            bp += 1
-        if p < len(radial) and (radial[p])[0] < tcount:
-            magtemp.append((radial[p])[1])
-            p += 1
-        counter += 1
-
-    if (len(angletemp) != 0) and (len(magtemp) != 0):
-
-        h = 0
-        number = 0
-        while h < len(angletemp):
-            number += angletemp[h]
-            h += 1
-        angle.append(number / len(angletemp))
-
-        h = 0
-        number = 0
-        while h < len(magtemp):
-            number += magtemp[h]
-            h += 1
-        mag.append(number / len(magtemp))
-    # else:
-    #     bavg.append(0)
-    #     ravg.append(0)
-
-    i += 1
+# The code below averages the angle based on time
+# tcount = 1538352000
+# i = 0
+# p = 0
+# bp = 0
+#
+# while i < 1464:
+#     counter = 0
+#     angletemp = []
+#     magtemp = []
+#     tcount += 36000
+#     while counter < 36000 and (tcount <= 1543622400):
+#
+#         if bp < len(theta) and (theta[bp])[0] < tcount:
+#             angletemp.append((theta[bp])[1])
+#             bp += 1
+#         if p < len(radial) and (radial[p])[0] < tcount:
+#             magtemp.append((radial[p])[1])
+#             p += 1
+#         counter += 1
+#
+#     if (len(angletemp) != 0) and (len(magtemp) != 0):
+#
+#         h = 0
+#         number = 0
+#         while h < len(angletemp):
+#             number += angletemp[h]
+#             h += 1
+#         angle.append(number / len(angletemp))
+#
+#         h = 0
+#         number = 0
+#         while h < len(magtemp):
+#             number += magtemp[h]
+#             h += 1
+#         mag.append(number / len(magtemp))
+#     # else:
+#     #     bavg.append(0)
+#     #     ravg.append(0)
+#
+#     i += 1
 print(len(mag))
 print(mag)
 print(angle)
