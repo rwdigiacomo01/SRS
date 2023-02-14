@@ -41,43 +41,83 @@ while i < len(data2):
 def getMagnitude(x1, y1, z1):
     magnitude = np.sqrt((x1 ** 2) + (y1 ** 2) + (z1 ** 2))
     return magnitude
+# Uses Distance formula to calculate distance from PSP to Sun
 
 
 def getAngle(Br, magnitude):
     temp = (math.acos((Br / magnitude)) * (180 / np.pi))
-
     return temp
+# Uses Dot Product to calculate the angle between the magnetic field and PSP through
 
 
 radial = []
 theta = []
+
 i = 0
 while i < len(Rt):
     radial.append([Rt[i], getMagnitude(x[i], y[i], z[i])])
     i += 1
+
 i = 0
 while i < len(Bt):
-
     if i == len(Bt) - 1:
         theta.append(theta[-1])
         break
-
     theta.append([Bt[i], getAngle(r[i], getMagnitude(r[i], t[i], n[i]))])
-
     i += 1
 
 
 def sort_by_distance(e):
     return e[0]
+
+
 # Combine radial and theta into a single list via identical timestamps
 # use combined_list.sort(key=sort_by_distance), automatically sorts ascending
-#
+# sort through list averaging into .01 AU chunks, check, add to avg / average out compiled then move onto next range
+# graphically display using a histogram with relevant title
 
+i = 0
+combo = []
 
+while i < len(radial):
+    combo.append([(radial[i])[1], (theta[i])[1]])
+    i += 1
 
-# Adjust t-count and i in the greater while loop since there are no longer any gaps in data
+combo.sort(key=sort_by_distance)
 angle = []
 mag = []
+
+temp2 = []
+range_val = 0.01
+i = 0
+
+while i < len(combo):
+
+    if (combo[i])[0] < range_val:
+        temp2.append((combo[i])[1])
+        i += 1
+
+    if i >= len(combo):
+        break
+
+    if (combo[i])[0] >= range_val and len(temp2) != 0:
+        avg = 0
+        b = 0
+        while b < len(temp2):
+            avg = avg + temp2[b]
+            b += 1
+        mag.append(range_val)
+        angle.append(avg/len(temp2))
+        temp2 = []
+        range_val += 0.01
+
+    elif (combo[i])[0] >= range_val and len(temp2) == 0:
+        range_val += 0.01
+
+
+print(mag)
+print(angle)
+# Adjust t-count and i in the greater while loop since there are no longer any gaps in data
 
 
 # The code below averages the angle based on time
@@ -121,16 +161,18 @@ mag = []
 #     #     ravg.append(0)
 #
 #     i += 1
-print(len(mag))
-print(mag)
-print(angle)
-print(len(angle))
+
+
+# Graphically displays via scatter plot
 plt.figure(num=0, dpi=120)
 plt.scatter(mag, angle)
 plt.grid(True)
+plt.ylim(0, 180)
 th = unicodedata.lookup("GREEK SMALL LETTER THETA")
-plt.title("Magnetic Field Angle (" + th + ") vs Distance From Center of the Sun (AU)")
-# pi = unicodedata.lookup("GREEK SMALL LETTER PI")
+plt.title("Angle of the Sun's Magnetic Field Within the Inner Heliosphere")
+plt.xlabel("Distance from the Center of the Sun [AU]")
+plt.ylabel("Magnetic Field Angel [" + th + "]")
+pi = unicodedata.lookup("GREEK SMALL LETTER PI")
 
 # x_ticks = [0, pi + "/2", pi, "3" + pi + "/2", "2" + pi]
 # plt.xlabel("Distance from center (0 -> 2" + pi + ")")

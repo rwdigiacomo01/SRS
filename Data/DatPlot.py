@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 
-#data = np.loadtxt(r'C:\Users\reece\Downloads\r_psp_hci_1s_orb1')
-#data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_1s_orb1')
-data2 = np.loadtxt(r'D:\B_rtn_orb1_nonan.dat')
-data = np.loadtxt(r'D:\R_psp_hci_orb1_nonan.dat')
+data2 = np.loadtxt(r'C:\Users\reece\Downloads\B_rtn_orb1_nonan.dat')
+data = np.loadtxt(r'C:\Users\reece\Downloads\R_psp_hci_orb1_nonan.dat')
+# data2 = np.loadtxt(r'D:\B_rtn_orb1_nonan.dat')
+# data = np.loadtxt(r'D:\R_psp_hci_orb1_nonan.dat')
 
 t = []
 x = []
@@ -46,10 +46,10 @@ ax = plt.axes(projection="3d")
 
 ax.scatter(x, y, z)
 
-ax.set_xlim(-.6, .6)
-ax.set_ylim(-.6, .6)
-ax.set_zlim(-.6, .6)
+ax.set_xlim(-.75, .75)
+ax.set_ylim(-.75, .75)
+ax.set_zlim(-.75, .75)
 
-ax.set_title("")
+ax.set_title("The Orbit of the Parker Solar Probe Around the Sun")
 
 plt.show()

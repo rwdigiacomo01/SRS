@@ -5,16 +5,17 @@ from matplotlib.animation import FuncAnimation
 
 import unicodedata
 
-radius = 2 * np.pi
-tlist = np.linspace(0, (2 * np.pi), num=1000)
+a = 1
+tlist = np.linspace(0, 2*np.pi, 1000)
+r = a * tlist
 
 
 def x(t):
-    return ((radius / (2 * np.pi)) * t) * np.cos(t)
+    return r * np.cos(t)
 
 
 def y(t):
-    return ((radius / (2 * np.pi)) * t) * np.sin(t)
+    return r * np.sin(t)
 
 
 xlist = x(tlist)
@@ -82,7 +83,8 @@ plt.grid(True)
 
 pi = unicodedata.lookup("GREEK SMALL LETTER PI")
 th = unicodedata.lookup("GREEK SMALL LETTER THETA")
-x_ticks = [0, pi + "/2", pi, "3" + pi + "/2", "2" + pi]
+plt.title("Archimedean Spiral [r = a" + th + "]")
+x_ticks = [0, r'$\frac{\pi}{2}$', r'$\pi$', r'$\frac{3\pi}{2}$', r'$2\pi$']
 plt.xlabel("Distance from center (0 -> 2" + pi + ")")
 
 plt.ylabel(th + " (degrees)")
