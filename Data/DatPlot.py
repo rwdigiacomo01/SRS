@@ -50,6 +50,6 @@ ax.set_xlim(-.75, .75)
 ax.set_ylim(-.75, .75)
 ax.set_zlim(-.75, .75)
 
-ax.set_title("The Orbit of the Parker Solar Probe Around the Sun")
+ax.set_title("The Orbit of the Parker Solar Probe Around the Sun [AU]")
 
 plt.show()
